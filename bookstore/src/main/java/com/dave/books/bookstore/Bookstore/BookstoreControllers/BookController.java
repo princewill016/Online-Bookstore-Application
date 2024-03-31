@@ -1,4 +1,4 @@
-package com.dave.books.bookstore.Bookstore;
+package com.dave.books.bookstore.Bookstore.BookstoreControllers;
 
 import java.util.List;
 import java.util.Optional;
@@ -7,6 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.dave.books.bookstore.Bookstore.BooksStoreServices.BookServices;
+import com.dave.books.bookstore.Bookstore.BookstoreEntities.BookEntity;
+
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,7 +33,7 @@ public class BookController {
         return booksServices.getAllBooks();
     }
 
-    @GetMapping(path = "/book/{BooksEntityId}")
+    @GetMapping(path = "{BooksEntityId}")
     public Optional<BookEntity> getBookById(@PathVariable("BooksEntityId") Long BooksEntityId) {
         try {
             return booksServices.getBookById(BooksEntityId);
@@ -39,7 +43,7 @@ public class BookController {
         }
     }
 
-    @GetMapping(path = "/book/{BooksEntityTitle}")
+    @GetMapping(path = "bookTitle/{BooksEntityTitle}")
     public Optional<BookEntity> getBookByTitle(@PathVariable("BooksEntityTitle") String BooksEntityTitle) {
         try {
             return booksServices.getBookByTitle(BooksEntityTitle);
@@ -49,7 +53,7 @@ public class BookController {
         }
     }
 
-    @GetMapping(path = "/book/{BooksEntityAuthor}")
+    @GetMapping(path = "bookAuthor/{BooksEntityAuthor}")
     public Optional<BookEntity> getBookByAuthor(@PathVariable("BooksEntityAuthor") String BooksEntityAuthor) {
         try {
             return booksServices.getBookByAuthor(BooksEntityAuthor);
@@ -72,7 +76,7 @@ public class BookController {
 
     @PutMapping("{BooksEntityId}")
     public void editBookDetail(@PathVariable("BooksEntityId") Long BooksEntityId,
-            @RequestParam(required = false) int price,
+            @RequestParam(required = false) Double price,
 
             @RequestParam(required = false) String title,
             @RequestParam(required = false) String author,

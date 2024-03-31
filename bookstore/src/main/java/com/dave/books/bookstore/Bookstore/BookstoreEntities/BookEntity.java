@@ -1,4 +1,4 @@
-package com.dave.books.bookstore.Bookstore;
+package com.dave.books.bookstore.Bookstore.BookstoreEntities;
 
 import java.util.Date;
 import jakarta.persistence.Entity;
@@ -22,12 +22,12 @@ public class BookEntity {
     private String title;
     private String author;
     private String description;
-    private double price;
+    private Double price;
     private int quantity;
     private int rating;
     private Date publishedDate;
 
-    public BookEntity(String title, String author, String description, double price, int quantity, int rating,
+    public BookEntity(String title, String author, String description, Double price, int quantity, int rating,
             Date publishedDate) {
         this.title = title;
         this.author = author;

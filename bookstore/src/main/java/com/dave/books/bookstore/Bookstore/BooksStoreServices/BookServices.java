@@ -1,4 +1,4 @@
-package com.dave.books.bookstore.Bookstore;
+package com.dave.books.bookstore.Bookstore.BooksStoreServices;
 
 import java.util.List;
 import java.util.Objects;
@@ -6,6 +6,9 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.dave.books.bookstore.Bookstore.BookStoreRepos.BookRepository;
+import com.dave.books.bookstore.Bookstore.BookstoreEntities.BookEntity;
 
 import jakarta.transaction.Transactional;
 
@@ -53,7 +56,7 @@ public class BookServices {
             throw new UnsupportedOperationException("There is no book with Author " +
                     booksEntityAuthor);
         }
-        return bookRepository.findByTitle(booksEntityAuthor);
+        return bookRepository.findByAuthor(booksEntityAuthor);
     }
 
     public BookEntity addNewBook(BookEntity bookEntity) {
@@ -73,28 +76,23 @@ public class BookServices {
     }
 
     @Transactional
-    public void updateBookDetail(int price, String title, String author, String description, Long booksEntityId) {
-        if (booksEntityId != null) {
-            Optional<BookEntity> optionalBook = bookRepository.findById(booksEntityId);
-            BookEntity book = optionalBook
-                    .orElseThrow(() -> new IllegalStateException("Book with id " + booksEntityId + " not found"));
-            if (price != book.getPrice()) {
-                book.setPrice(price);
-            }
-            if (title != null && !title.isEmpty() && !Objects.equals(book.getTitle(), title)) {
-                book.setTitle(title);
-            }
-            if (author != null && !author.isEmpty() && !Objects.equals(book.getAuthor(), author)) {
-                book.setAuthor(author);
-            }
-            if (description != null && !description.isEmpty() && !Objects.equals(book.getDescription(), description)) {
-                book.setDescription(description);
-            }
-            bookRepository.save(book);
-        } else {
-            throw new IllegalArgumentException("booksEntityId cannot be null");
-        }
+    public void updateBookDetail(Double price, String title, String author, String description, Long booksEntityId) {
 
+        BookEntity book = bookRepository.findById(booksEntityId)
+                .orElseThrow(() -> new IllegalStateException("Book with id " + booksEntityId + " not found"));
+        if (price != null && !Objects.equals(book.getPrice(), price)) {
+            book.setPrice(price);
+        }
+        if (title != null && !title.isEmpty() && !Objects.equals(book.getTitle(), title)) {
+            book.setTitle(title);
+        }
+        if (author != null && !author.isEmpty() && !Objects.equals(book.getAuthor(), author)) {
+            book.setAuthor(author);
+        }
+        if (description != null && !description.isEmpty() && !Objects.equals(book.getDescription(), description)) {
+            book.setDescription(description);
+        }
+        // bookRepository.save(book);
     }
 
     @SuppressWarnings("null")
