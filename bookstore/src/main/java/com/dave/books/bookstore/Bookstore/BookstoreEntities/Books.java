@@ -1,10 +1,15 @@
 package com.dave.books.bookstore.Bookstore.BookstoreEntities;
 
 import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,7 +20,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class BookEntity {
+public class Books {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Book_sequence")
     private Long id;
@@ -25,17 +30,10 @@ public class BookEntity {
     private Double price;
     private int quantity;
     private int rating;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private Date publishedDate;
-
-    public BookEntity(String title, String author, String description, Double price, int quantity, int rating,
-            Date publishedDate) {
-        this.title = title;
-        this.author = author;
-        this.description = description;
-        this.price = price;
-        this.quantity = quantity;
-        this.rating = rating;
-        this.publishedDate = publishedDate;
-    }
+    @ManyToOne
+    @JoinColumn(name = "categoryId")
+    private BookCategory bookCategory;
 
 }

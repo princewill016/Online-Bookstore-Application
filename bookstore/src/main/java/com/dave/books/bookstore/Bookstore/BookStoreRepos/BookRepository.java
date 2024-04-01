@@ -5,15 +5,19 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.dave.books.bookstore.Bookstore.BookstoreEntities.BookEntity;
+import com.dave.books.bookstore.Bookstore.BookstoreEntities.Books;
 
 @Repository
-public interface BookRepository extends JpaRepository<BookEntity, Long> {
-    boolean existsByTitle(String booksEntityTitle);
-    Optional<BookEntity> findByTitle(String booksEntityTitle);
-    boolean existsByAuthor(String booksEntityAuthor);
-    Optional<BookEntity> findByAuthor(String booksEntityAuthor);
+public interface BookRepository extends JpaRepository<Books, Long> {
+    boolean existsByTitle(String booksTitle);
+
+    Optional<Books> findByTitle(String booksTitle);
+
+    boolean existsByAuthor(String booksAuthor);
+
+    Optional<Books> findByAuthor(String booksAuthor);
+
     @SuppressWarnings("null")
-    Optional<BookEntity> findById(Long bookEntityId);
+    Optional<Books> findById(Long booksId);
 
 }

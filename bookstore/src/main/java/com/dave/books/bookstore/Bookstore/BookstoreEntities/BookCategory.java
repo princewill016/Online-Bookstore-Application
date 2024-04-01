@@ -1,9 +1,12 @@
 package com.dave.books.bookstore.Bookstore.BookstoreEntities;
 
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,16 +17,13 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class BookCategoryEntity {
+public class BookCategory {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Book_sequence")
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "BookCategory_sequence")
+    private Long categoryId;
     private String title;
     private String category;
-
-    public BookCategoryEntity(String title, String category) {
-        this.title = title;
-        this.category = category;
-    }
+    @OneToMany(mappedBy = "bookCategory")
+    private List<Books> books;
 
 }

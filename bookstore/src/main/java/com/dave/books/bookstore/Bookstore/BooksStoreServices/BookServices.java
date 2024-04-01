@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dave.books.bookstore.Bookstore.BookStoreRepos.BookRepository;
-import com.dave.books.bookstore.Bookstore.BookstoreEntities.BookEntity;
+import com.dave.books.bookstore.Bookstore.BookstoreEntities.Books;
 
 import jakarta.transaction.Transactional;
 
@@ -22,7 +22,7 @@ public class BookServices {
         this.bookRepository = bookRepository;
     }
 
-    public List<BookEntity> getAllBooks() {
+    public List<Books> getAllBooks() {
         try {
             return bookRepository.findAll();
         } catch (Exception e) {
@@ -32,54 +32,55 @@ public class BookServices {
     }
 
     @SuppressWarnings("null")
-    public Optional<BookEntity> getBookById(Long booksEntityId) {
-        boolean exist = bookRepository.existsById(booksEntityId);
+    public Optional<Books> getBookById(Long booksId) {
+        boolean exist = bookRepository.existsById(booksId);
         if (!exist) {
             throw new UnsupportedOperationException("There is no book with id " +
-                    booksEntityId);
+                    booksId);
         }
-        return bookRepository.findById(booksEntityId);
+        return bookRepository.findById(booksId);
     }
 
-    public Optional<BookEntity> getBookByTitle(String booksEntityTitle) {
-        boolean exist = bookRepository.existsByTitle(booksEntityTitle);
+    public Optional<Books> getBookByTitle(String booksTitle) {
+        boolean exist = bookRepository.existsByTitle(booksTitle);
         if (!exist) {
             throw new UnsupportedOperationException("There is no book with title " +
-                    booksEntityTitle);
+                    booksTitle);
         }
-        return bookRepository.findByTitle(booksEntityTitle);
+        return bookRepository.findByTitle(booksTitle);
     }
 
-    public Optional<BookEntity> getBookByAuthor(String booksEntityAuthor) {
-        boolean exist = bookRepository.existsByAuthor(booksEntityAuthor);
+    public Optional<Books> getBookByAuthor(String booksAuthor) {
+        boolean exist = bookRepository.existsByAuthor(booksAuthor);
         if (!exist) {
             throw new UnsupportedOperationException("There is no book with Author " +
-                    booksEntityAuthor);
+                    booksAuthor);
         }
-        return bookRepository.findByAuthor(booksEntityAuthor);
+        return bookRepository.findByAuthor(booksAuthor);
     }
 
-    public BookEntity addNewBook(BookEntity bookEntity) {
-        Optional<BookEntity> bookOpt = bookRepository.findByTitle(bookEntity.getTitle());
+    public Books addNewBook(Books books) {
+        Optional<Books> bookOpt = bookRepository.findByTitle(books.getTitle());
         if (bookOpt.isPresent()) {
             throw new IllegalStateException("Book already exists");
         } else {
-            return bookRepository.save(bookEntity);
+            return bookRepository.save(books);
         }
     }
 
-    public List<BookEntity> addNewBooks(List<BookEntity> bookEntity) {
-        if (bookEntity == null) {
-            throw new IllegalArgumentException("bookEntity cannot be null");
+    public List<Books> addNewBooks(List<Books> books) {
+        if (books == null) {
+            throw new IllegalArgumentException("books cannot be null");
         }
-        return bookRepository.saveAll(bookEntity);
+        return bookRepository.saveAll(books);
     }
 
+    @SuppressWarnings("null")
     @Transactional
-    public void updateBookDetail(Double price, String title, String author, String description, Long booksEntityId) {
+    public void updateBookDetail(Double price, String title, String author, String description, Long booksId) {
 
-        BookEntity book = bookRepository.findById(booksEntityId)
-                .orElseThrow(() -> new IllegalStateException("Book with id " + booksEntityId + " not found"));
+        Books book = bookRepository.findById(booksId)
+                .orElseThrow(() -> new IllegalStateException("Book with id " + booksId + " not found"));
         if (price != null && !Objects.equals(book.getPrice(), price)) {
             book.setPrice(price);
         }
@@ -92,16 +93,16 @@ public class BookServices {
         if (description != null && !description.isEmpty() && !Objects.equals(book.getDescription(), description)) {
             book.setDescription(description);
         }
-        // bookRepository.save(book);
+        bookRepository.save(book);
     }
 
     @SuppressWarnings("null")
-    public void deleteBook(Long booksEntityId) {
-        boolean exists = bookRepository.existsById(booksEntityId);
+    public void deleteBook(Long booksId) {
+        boolean exists = bookRepository.existsById(booksId);
         if (!exists) {
-            throw new IllegalStateException("There is no book with id " + booksEntityId);
+            throw new IllegalStateException("There is no book with id " + booksId);
         }
-        bookRepository.deleteById(booksEntityId);
+        bookRepository.deleteById(booksId);
     }
 
 }

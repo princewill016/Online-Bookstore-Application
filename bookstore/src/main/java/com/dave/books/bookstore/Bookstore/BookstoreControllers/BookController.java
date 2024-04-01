@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dave.books.bookstore.Bookstore.BooksStoreServices.BookServices;
-import com.dave.books.bookstore.Bookstore.BookstoreEntities.BookEntity;
+import com.dave.books.bookstore.Bookstore.BookstoreEntities.Books;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,64 +29,64 @@ public class BookController {
     }
 
     @GetMapping()
-    public List<BookEntity> getAllBooks() {
+    public List<Books> getAllBooks() {
         return booksServices.getAllBooks();
     }
 
-    @GetMapping(path = "{BooksEntityId}")
-    public Optional<BookEntity> getBookById(@PathVariable("BooksEntityId") Long BooksEntityId) {
+    @GetMapping(path = "{BooksId}")
+    public Optional<Books> getBookById(@PathVariable("BooksId") Long BooksId) {
         try {
-            return booksServices.getBookById(BooksEntityId);
+            return booksServices.getBookById(BooksId);
         } catch (Exception e) {
-            throw new UnsupportedOperationException("There is no book with " + BooksEntityId
+            throw new UnsupportedOperationException("There is no book with " + BooksId
                     + " id please check the id and try again", e);
         }
     }
 
-    @GetMapping(path = "bookTitle/{BooksEntityTitle}")
-    public Optional<BookEntity> getBookByTitle(@PathVariable("BooksEntityTitle") String BooksEntityTitle) {
+    @GetMapping(path = "bookTitle/{BooksTitle}")
+    public Optional<Books> getBookByTitle(@PathVariable("BooksTitle") String BooksTitle) {
         try {
-            return booksServices.getBookByTitle(BooksEntityTitle);
+            return booksServices.getBookByTitle(BooksTitle);
         } catch (Exception e) {
-            throw new UnsupportedOperationException("There is no book with " + BooksEntityTitle
+            throw new UnsupportedOperationException("There is no book with " + BooksTitle
                     + " as a title,  please check the spelling and try again", e);
         }
     }
 
-    @GetMapping(path = "bookAuthor/{BooksEntityAuthor}")
-    public Optional<BookEntity> getBookByAuthor(@PathVariable("BooksEntityAuthor") String BooksEntityAuthor) {
+    @GetMapping(path = "bookAuthor/{BooksAuthor}")
+    public Optional<Books> getBookByAuthor(@PathVariable("BooksAuthor") String BooksAuthor) {
         try {
-            return booksServices.getBookByAuthor(BooksEntityAuthor);
+            return booksServices.getBookByAuthor(BooksAuthor);
         } catch (Exception e) {
-            throw new UnsupportedOperationException("There is no book with author " + BooksEntityAuthor
+            throw new UnsupportedOperationException("There is no book with author " + BooksAuthor
                     + " please check the spelling and try again", e);
         }
     }
 
     @PostMapping("/addBook")
-    public BookEntity addNewBook(@RequestBody BookEntity bookEntity) {
-        return booksServices.addNewBook(bookEntity);
+    public Books addNewBook(@RequestBody Books books) {
+        return booksServices.addNewBook(books);
     }
 
     @PostMapping("/addBooks")
-    public List<BookEntity> addNewBooks(@RequestBody List<BookEntity> bookEntity) {
-        booksServices.addNewBooks(bookEntity);
-        return bookEntity;
+    public List<Books> addNewBooks(@RequestBody List<Books> books) {
+        booksServices.addNewBooks(books);
+        return books;
     }
 
-    @PutMapping("{BooksEntityId}")
-    public void editBookDetail(@PathVariable("BooksEntityId") Long BooksEntityId,
+    @PutMapping("{BooksId}")
+    public void editBookDetail(@PathVariable("BooksId") Long BooksId,
             @RequestParam(required = false) Double price,
 
             @RequestParam(required = false) String title,
             @RequestParam(required = false) String author,
             @RequestParam(required = false) String description) {
-        booksServices.updateBookDetail(price, title, author, description, BooksEntityId);
+        booksServices.updateBookDetail(price, title, author, description, BooksId);
     }
 
-    @DeleteMapping(path = "{BooksEntityId}")
-    public void deleteBook(@PathVariable("BooksEntityId") Long BooksEntityId) {
-        booksServices.deleteBook(BooksEntityId);
+    @DeleteMapping(path = "{BooksId}")
+    public void deleteBook(@PathVariable("BooksId") Long BooksId) {
+        booksServices.deleteBook(BooksId);
 
     }
 }
