@@ -63,12 +63,12 @@ public class BookController {
         }
     }
 
-    @PostMapping("/addBook")
+    @PostMapping("/newBook")
     public Books addNewBook(@RequestBody Books books) {
         return booksServices.addNewBook(books);
     }
 
-    @PostMapping("/addBooks")
+    @PostMapping("/newBooks")
     public List<Books> addNewBooks(@RequestBody List<Books> books) {
         booksServices.addNewBooks(books);
         return books;

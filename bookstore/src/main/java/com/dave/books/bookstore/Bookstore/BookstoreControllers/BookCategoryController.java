@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
 
 @RestController
-@RequestMapping(path = "api/v3/booksCategory")
+@RequestMapping(path = "api/v2/booksCategory")
 public class BookCategoryController {
     @Autowired
     BookCategoryServices booksCategoryServices;
@@ -63,12 +63,12 @@ public class BookCategoryController {
         }
     }
 
-    @PostMapping("/addCategory")
+    @PostMapping("/newCategory")
     public BookCategory addNewCategory(@RequestBody BookCategory bookCategory) {
         return booksCategoryServices.addNewCategory(bookCategory);
     }
 
-    @PostMapping("/addCategories")
+    @PostMapping("/newCategories")
     public List<BookCategory> addNewCategories(@RequestBody List<BookCategory> bookCategory) {
         booksCategoryServices.addNewCategories(bookCategory);
         return bookCategory;
