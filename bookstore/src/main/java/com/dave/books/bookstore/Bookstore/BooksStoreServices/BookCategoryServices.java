@@ -31,7 +31,7 @@ public class BookCategoryServices {
 
     }
 
-    @SuppressWarnings("null")
+
     public Optional<BookCategory> getBookCategoryById(Long bookCategoryId) {
         boolean exist = bookCategoryRepository.existsById(bookCategoryId);
         if (!exist) {
@@ -75,7 +75,7 @@ public class BookCategoryServices {
         return bookCategoryRepository.saveAll(bookCategory);
     }
 
-    @SuppressWarnings("null")
+
     @Transactional
     public void editBookCategory(String title, String category, Long bookCategoryId) {
 
@@ -90,7 +90,7 @@ public class BookCategoryServices {
         bookCategoryRepository.save(bookCategory);
     }
 
-    @SuppressWarnings("null")
+
     public void deleteCategory(Long bookCategoryId) {
         boolean exists = bookCategoryRepository.existsById(bookCategoryId);
         if (!exists) {

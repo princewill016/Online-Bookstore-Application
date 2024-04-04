@@ -31,7 +31,7 @@ public class BookServices {
 
     }
 
-    @SuppressWarnings("null")
+
     public Optional<Books> getBookById(Long booksId) {
         boolean exist = bookRepository.existsById(booksId);
         if (!exist) {
@@ -75,7 +75,7 @@ public class BookServices {
         return bookRepository.saveAll(books);
     }
 
-    @SuppressWarnings("null")
+
     @Transactional
     public void updateBookDetail(Double price, String title, String author, String description, Long booksId) {
 
@@ -96,7 +96,7 @@ public class BookServices {
         bookRepository.save(book);
     }
 
-    @SuppressWarnings("null")
+
     public void deleteBook(Long booksId) {
         boolean exists = bookRepository.existsById(booksId);
         if (!exists) {
