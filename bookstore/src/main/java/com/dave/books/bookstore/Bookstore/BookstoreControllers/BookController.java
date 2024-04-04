@@ -43,15 +43,16 @@ public class BookController {
         }
     }
 
-    @GetMapping(path = "bookTitle/{BooksTitle}")
-    public Optional<Books> getBookByTitle(@PathVariable("BooksTitle") String BooksTitle) {
-        try {
-            return booksServices.getBookByTitle(BooksTitle);
-        } catch (Exception e) {
-            throw new UnsupportedOperationException("There is no book with " + BooksTitle
-                    + " as a title,  please check the spelling and try again", e);
-        }
-    }
+    // @GetMapping(path = "bookTitle/{BooksTitle}")
+    // public Optional<Books> getBookByTitle(@PathVariable("BooksTitle") String
+    // BooksTitle) {
+    // try {
+    // return booksServices.getBookByTitle(BooksTitle);
+    // } catch (Exception e) {
+    // throw new UnsupportedOperationException("There is no book with " + BooksTitle
+    // + " as a title, please check the spelling and try again", e);
+    // }
+    // }
 
     @GetMapping(path = "bookAuthor/{BooksAuthor}")
     public Optional<Books> getBookByAuthor(@PathVariable("BooksAuthor") String BooksAuthor) {

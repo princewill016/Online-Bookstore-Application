@@ -3,7 +3,6 @@ package com.dave.books.bookstore.Bookstore.BookstoreEntities;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -35,5 +34,4 @@ public class Books {
     @ManyToOne
     @JoinColumn(name = "categoryId")
     private BookCategory bookCategory;
-
 }

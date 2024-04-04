@@ -31,7 +31,6 @@ public class BookServices {
 
     }
 
-
     public Optional<Books> getBookById(Long booksId) {
         boolean exist = bookRepository.existsById(booksId);
         if (!exist) {
@@ -42,12 +41,12 @@ public class BookServices {
     }
 
     public Optional<Books> getBookByTitle(String booksTitle) {
-        boolean exist = bookRepository.existsByTitle(booksTitle);
-        if (!exist) {
-            throw new UnsupportedOperationException("There is no book with title " +
-                    booksTitle);
-        }
-        return bookRepository.findByTitle(booksTitle);
+    boolean exist = bookRepository.existsByTitle(booksTitle);
+    if (!exist) {
+    throw new UnsupportedOperationException("There is no book with title " +
+    booksTitle);
+    }
+    return bookRepository.findByTitle(booksTitle);
     }
 
     public Optional<Books> getBookByAuthor(String booksAuthor) {
@@ -62,10 +61,10 @@ public class BookServices {
     public Books addNewBook(Books books) {
         Optional<Books> bookOpt = bookRepository.findByTitle(books.getTitle());
         if (bookOpt.isPresent()) {
-            throw new IllegalStateException("Book already exists");
+        throw new IllegalStateException("Book already exists");
         } else {
-            return bookRepository.save(books);
         }
+        return bookRepository.save(books);
     }
 
     public List<Books> addNewBooks(List<Books> books) {
@@ -75,7 +74,6 @@ public class BookServices {
         return bookRepository.saveAll(books);
     }
 
-
     @Transactional
     public void updateBookDetail(Double price, String title, String author, String description, Long booksId) {
 
@@ -84,9 +82,10 @@ public class BookServices {
         if (price != null && !Objects.equals(book.getPrice(), price)) {
             book.setPrice(price);
         }
-        if (title != null && !title.isEmpty() && !Objects.equals(book.getTitle(), title)) {
-            book.setTitle(title);
-        }
+        // if (title != null && !title.isEmpty() && !Objects.equals(book.getTitle(),
+        // title)) {
+        // book.setTitle(title);
+        // }
         if (author != null && !author.isEmpty() && !Objects.equals(book.getAuthor(), author)) {
             book.setAuthor(author);
         }
@@ -95,7 +94,6 @@ public class BookServices {
         }
         bookRepository.save(book);
     }
-
 
     public void deleteBook(Long booksId) {
         boolean exists = bookRepository.existsById(booksId);

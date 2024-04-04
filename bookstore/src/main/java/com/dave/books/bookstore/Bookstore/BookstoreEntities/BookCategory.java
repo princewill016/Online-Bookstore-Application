@@ -2,6 +2,7 @@ package com.dave.books.bookstore.Bookstore.BookstoreEntities;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,7 +24,7 @@ public class BookCategory {
     private Long categoryId;
     private String title;
     private String category;
-    @OneToMany(mappedBy = "bookCategory")
+    @OneToMany(mappedBy = "bookCategory", cascade = CascadeType.ALL)
     private List<Books> books;
 
 }
