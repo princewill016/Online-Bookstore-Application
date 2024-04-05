@@ -82,10 +82,10 @@ public class BookServices {
         if (price != null && !Objects.equals(book.getPrice(), price)) {
             book.setPrice(price);
         }
-        // if (title != null && !title.isEmpty() && !Objects.equals(book.getTitle(),
-        // title)) {
-        // book.setTitle(title);
-        // }
+        if (title != null && !title.isEmpty() && !Objects.equals(book.getTitle(),
+        title)) {
+        book.setTitle(title);
+        }
         if (author != null && !author.isEmpty() && !Objects.equals(book.getAuthor(), author)) {
             book.setAuthor(author);
         }
