@@ -48,6 +48,10 @@ public class SecurityConfig {
                                         "/configuration/security",
                                         "/webjars/**",
                                         "/swagger-ui.html",
+                                        "/actuator/health",
+                                        "/actuator/env",
+                                        "/actuator/metrics",
+                                        "/actuator/info",
                                         "/swagger-ui/**")
                                 .permitAll()
                                 .anyRequest()
